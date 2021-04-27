@@ -6,7 +6,7 @@ const app = express();
 app.use(
     postgraphile(
         // process.env.DATABASE_URL || "postgres://user:pass@host:5432/dbname",
-        process.env.DATABASE_URL || "postgres://docker:docker@host:5432/dbname",
+        "postgres://docker:docker@localhost:5432/postgres",
         "public",
         {
             watchPg: true,
@@ -16,4 +16,5 @@ app.use(
     )
 );
 
-app.listen(process.env.PORT || 3000);
+// app.listen(process.env.PORT || 3000);
+app.listen(9999);

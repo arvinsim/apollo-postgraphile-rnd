@@ -3,6 +3,7 @@ version: "3"
 services:
   database:
     image: postgres
+    container_name: apollo_postgraphile_rnd
     environment: # postgres should be getting these variables, not the variables set in the env file thats for localhost
       POSTGRES_PASSWORD: docker
       POSTGRES_USER: docker
