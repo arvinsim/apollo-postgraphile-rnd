@@ -22,13 +22,21 @@ CREATE TABLE scores
 );
 
 -- Insert data
-INSERT INTO players(id, name) VALUES (1, 'John');
-INSERT INTO scores(score, player_id, date_created) VALUES (111, 1, current_timestamp);
-INSERT INTO scores(score, player_id, date_created) VALUES (122, 1, current_timestamp);
-INSERT INTO scores(score, player_id, date_created) VALUES (133, 1, current_timestamp);
+INSERT INTO players(id, name)
+VALUES (1, 'John');
+INSERT INTO scores(score, player_id, date_created)
+VALUES (111, 1, current_timestamp);
+INSERT INTO scores(score, player_id, date_created)
+VALUES (122, 1, current_timestamp);
+INSERT INTO scores(score, player_id, date_created)
+VALUES (133, 1, current_timestamp);
 
-INSERT INTO players(id, name) VALUES (2, 'Jane');
-INSERT INTO scores(score, player_id, date_created) VALUES (211, 2, current_timestamp);
-INSERT INTO scores(score, player_id, date_created) VALUES (222, 2, current_timestamp);
-INSERT INTO scores(score, player_id, date_created) VALUES (233, 2, current_timestamp);
+INSERT INTO players(id, name)
+VALUES (2, 'Jane');
+INSERT INTO scores(score, player_id, date_created)
+VALUES (211, 2, current_timestamp);
+INSERT INTO scores(score, player_id, date_created)
+VALUES (222, 2, current_timestamp);
+INSERT INTO scores(score, player_id, date_created)
+VALUES (233, 2, current_timestamp);
 
