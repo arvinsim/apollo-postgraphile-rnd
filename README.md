@@ -8,4 +8,6 @@
 - [x] Setup Apollo Client
 - [x] Setup Typescript types generator for Apollo Client Queries
 - [x] Setup TailwindCSS
+- [x] Setup translations using react-i18next
+- [] Setup translation extractor
 
