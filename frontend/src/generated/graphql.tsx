@@ -1,7 +1,10 @@
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -607,6 +610,111 @@ export type UpdateScorePayloadScoreEdgeArgs = {
   orderBy?: Maybe<Array<ScoresOrderBy>>;
 };
 
+export type PlayersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PlayersQuery = (
+  { __typename?: 'Query' }
+  & { allPlayers?: Maybe<(
+    { __typename?: 'PlayersConnection' }
+    & { nodes: Array<Maybe<(
+      { __typename?: 'Player' }
+      & Pick<Player, 'id' | 'name'>
+    )>> }
+  )> }
+);
+
+export type ScoresQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ScoresQuery = (
+  { __typename?: 'Query' }
+  & { allScores?: Maybe<(
+    { __typename?: 'ScoresConnection' }
+    & { nodes: Array<Maybe<(
+      { __typename?: 'Score' }
+      & Pick<Score, 'id' | 'score' | 'playerId' | 'dateCreated'>
+    )>> }
+  )> }
+);
+
+
+export const PlayersDocument = gql`
+    query Players {
+  allPlayers {
+    nodes {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __usePlayersQuery__
+ *
+ * To run a query within a React component, call `usePlayersQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePlayersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePlayersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePlayersQuery(baseOptions?: Apollo.QueryHookOptions<PlayersQuery, PlayersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PlayersQuery, PlayersQueryVariables>(PlayersDocument, options);
+      }
+export function usePlayersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PlayersQuery, PlayersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PlayersQuery, PlayersQueryVariables>(PlayersDocument, options);
+        }
+export type PlayersQueryHookResult = ReturnType<typeof usePlayersQuery>;
+export type PlayersLazyQueryHookResult = ReturnType<typeof usePlayersLazyQuery>;
+export type PlayersQueryResult = Apollo.QueryResult<PlayersQuery, PlayersQueryVariables>;
+export const ScoresDocument = gql`
+    query Scores {
+  allScores {
+    nodes {
+      id
+      score
+      playerId
+      dateCreated
+    }
+  }
+}
+    `;
+
+/**
+ * __useScoresQuery__
+ *
+ * To run a query within a React component, call `useScoresQuery` and pass it any options that fit your needs.
+ * When your component renders, `useScoresQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useScoresQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useScoresQuery(baseOptions?: Apollo.QueryHookOptions<ScoresQuery, ScoresQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ScoresQuery, ScoresQueryVariables>(ScoresDocument, options);
+      }
+export function useScoresLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ScoresQuery, ScoresQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ScoresQuery, ScoresQueryVariables>(ScoresDocument, options);
+        }
+export type ScoresQueryHookResult = ReturnType<typeof useScoresQuery>;
+export type ScoresLazyQueryHookResult = ReturnType<typeof useScoresLazyQuery>;
+export type ScoresQueryResult = Apollo.QueryResult<ScoresQuery, ScoresQueryVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {
@@ -623,3 +731,4 @@ export type UpdateScorePayloadScoreEdgeArgs = {
   }
 };
       export default result;
+    

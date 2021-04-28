@@ -1,0 +1,19 @@
+query Players {
+    allPlayers {
+        nodes {
+            id
+            name
+        }
+    }
+}
+
+query Scores {
+    allScores {
+        nodes {
+            id
+            score
+            playerId
+            dateCreated
+        }
+    }
+}
