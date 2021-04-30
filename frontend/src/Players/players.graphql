@@ -7,6 +7,17 @@ query Players {
     }
 }
 
+mutation createPlayer($name: String) {
+    createPlayer(
+        input: { player: { name: $name }}
+    ) {
+        player {
+            id
+            name
+        }
+    }
+}
+
 query Scores {
     allScores {
         nodes {

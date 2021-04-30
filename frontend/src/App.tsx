@@ -1,31 +1,35 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client/react";
+import { I18nextProvider } from "react-i18next";
 
-import "./index.css"
-import i18n from './i18n'
+import "./index.css";
+import i18n from "./i18n";
+import { client } from "./apollo";
 
 import { Players } from "./Players";
-import { client } from "./apollo";
-import {LanguageSwitcher} from "./LanguageSwitcher";
-import {I18nextProvider} from "react-i18next";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { CreatePlayer } from "./Players/CreatePlayer";
 
 function App() {
   return (
-      <I18nextProvider i18n={i18n}>
-    <BrowserRouter>
-      <ApolloProvider client={client}>
+    <I18nextProvider i18n={i18n}>
+      <BrowserRouter>
+        <ApolloProvider client={client}>
           <div>
             <LanguageSwitcher />
             <Switch>
-              <Route exact path="/">
+              <Route exact path="/players/add">
+                <CreatePlayer />
+              </Route>
+              <Route exact path={["/", "/players"]}>
                 <Players />
               </Route>
             </Switch>
           </div>
-      </ApolloProvider>
-    </BrowserRouter>
-      </I18nextProvider>
+        </ApolloProvider>
+      </BrowserRouter>
+    </I18nextProvider>
   );
 }
 

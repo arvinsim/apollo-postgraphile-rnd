@@ -6,3 +6,10 @@ h1 {
     font-size: 32px;
     font-weight: bold;
 }
+
+a.action {
+    background-color: blue;
+    color: white;
+    padding: 0.5em 0.5em;
+    text-decoration: none;
+}

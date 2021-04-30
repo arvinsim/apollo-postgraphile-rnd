@@ -624,6 +624,22 @@ export type PlayersQuery = (
   )> }
 );
 
+export type CreatePlayerMutationVariables = Exact<{
+  name?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CreatePlayerMutation = (
+  { __typename?: 'Mutation' }
+  & { createPlayer?: Maybe<(
+    { __typename?: 'CreatePlayerPayload' }
+    & { player?: Maybe<(
+      { __typename?: 'Player' }
+      & Pick<Player, 'id' | 'name'>
+    )> }
+  )> }
+);
+
 export type ScoresQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -676,6 +692,42 @@ export function usePlayersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pl
 export type PlayersQueryHookResult = ReturnType<typeof usePlayersQuery>;
 export type PlayersLazyQueryHookResult = ReturnType<typeof usePlayersLazyQuery>;
 export type PlayersQueryResult = Apollo.QueryResult<PlayersQuery, PlayersQueryVariables>;
+export const CreatePlayerDocument = gql`
+    mutation createPlayer($name: String) {
+  createPlayer(input: {player: {name: $name}}) {
+    player {
+      id
+      name
+    }
+  }
+}
+    `;
+export type CreatePlayerMutationFn = Apollo.MutationFunction<CreatePlayerMutation, CreatePlayerMutationVariables>;
+
+/**
+ * __useCreatePlayerMutation__
+ *
+ * To run a mutation, you first call `useCreatePlayerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePlayerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPlayerMutation, { data, loading, error }] = useCreatePlayerMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useCreatePlayerMutation(baseOptions?: Apollo.MutationHookOptions<CreatePlayerMutation, CreatePlayerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePlayerMutation, CreatePlayerMutationVariables>(CreatePlayerDocument, options);
+      }
+export type CreatePlayerMutationHookResult = ReturnType<typeof useCreatePlayerMutation>;
+export type CreatePlayerMutationResult = Apollo.MutationResult<CreatePlayerMutation>;
+export type CreatePlayerMutationOptions = Apollo.BaseMutationOptions<CreatePlayerMutation, CreatePlayerMutationVariables>;
 export const ScoresDocument = gql`
     query Scores {
   allScores {
