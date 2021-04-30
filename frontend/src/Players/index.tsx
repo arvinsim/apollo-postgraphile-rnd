@@ -24,22 +24,22 @@ export function Players() {
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {data?.allPlayers?.nodes?.map((player) => {
                     return <tr key={player.id}>
                         <td>{player.id}</td>
-                        <td>{player.name}</td>
                         <td>
-                            <Link className="action" to="/scores/add">Add Score</Link>
+                            <Link to={`/players/${player.id}`}>
+                                {player.name}
+                            </Link>
                         </td>
                     </tr>;
                 })}
                 </tbody>
             </table>
-            <Link className="action" to="/players/add">Add Player</Link>
+            <Link className="action" to="/players/create">Create Player</Link>
         </div>
     );
 }

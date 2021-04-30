@@ -624,8 +624,28 @@ export type PlayersQuery = (
   )> }
 );
 
+export type PlayerByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type PlayerByIdQuery = (
+  { __typename?: 'Query' }
+  & { playerById?: Maybe<(
+    { __typename?: 'Player' }
+    & Pick<Player, 'id' | 'name'>
+    & { scoresByPlayerId: (
+      { __typename?: 'ScoresConnection' }
+      & { nodes: Array<Maybe<(
+        { __typename?: 'Score' }
+        & Pick<Score, 'id' | 'score' | 'dateCreated'>
+      )>> }
+    ) }
+  )> }
+);
+
 export type CreatePlayerMutationVariables = Exact<{
-  name?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
 }>;
 
 
@@ -651,6 +671,24 @@ export type ScoresQuery = (
       { __typename?: 'Score' }
       & Pick<Score, 'id' | 'score' | 'playerId' | 'dateCreated'>
     )>> }
+  )> }
+);
+
+export type CreateScoreMutationVariables = Exact<{
+  playerId: Scalars['Int'];
+  score: Scalars['Int'];
+  dateCreated: Scalars['Datetime'];
+}>;
+
+
+export type CreateScoreMutation = (
+  { __typename?: 'Mutation' }
+  & { createScore?: Maybe<(
+    { __typename?: 'CreateScorePayload' }
+    & { score?: Maybe<(
+      { __typename?: 'Score' }
+      & Pick<Score, 'id' | 'score' | 'playerId' | 'dateCreated'>
+    )> }
   )> }
 );
 
@@ -692,8 +730,51 @@ export function usePlayersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pl
 export type PlayersQueryHookResult = ReturnType<typeof usePlayersQuery>;
 export type PlayersLazyQueryHookResult = ReturnType<typeof usePlayersLazyQuery>;
 export type PlayersQueryResult = Apollo.QueryResult<PlayersQuery, PlayersQueryVariables>;
+export const PlayerByIdDocument = gql`
+    query PlayerById($id: Int!) {
+  playerById(id: $id) {
+    id
+    name
+    scoresByPlayerId {
+      nodes {
+        id
+        score
+        dateCreated
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __usePlayerByIdQuery__
+ *
+ * To run a query within a React component, call `usePlayerByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePlayerByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePlayerByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePlayerByIdQuery(baseOptions: Apollo.QueryHookOptions<PlayerByIdQuery, PlayerByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PlayerByIdQuery, PlayerByIdQueryVariables>(PlayerByIdDocument, options);
+      }
+export function usePlayerByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PlayerByIdQuery, PlayerByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PlayerByIdQuery, PlayerByIdQueryVariables>(PlayerByIdDocument, options);
+        }
+export type PlayerByIdQueryHookResult = ReturnType<typeof usePlayerByIdQuery>;
+export type PlayerByIdLazyQueryHookResult = ReturnType<typeof usePlayerByIdLazyQuery>;
+export type PlayerByIdQueryResult = Apollo.QueryResult<PlayerByIdQuery, PlayerByIdQueryVariables>;
 export const CreatePlayerDocument = gql`
-    mutation createPlayer($name: String) {
+    mutation createPlayer($name: String!) {
   createPlayer(input: {player: {name: $name}}) {
     player {
       id
@@ -767,6 +848,48 @@ export function useScoresLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Sco
 export type ScoresQueryHookResult = ReturnType<typeof useScoresQuery>;
 export type ScoresLazyQueryHookResult = ReturnType<typeof useScoresLazyQuery>;
 export type ScoresQueryResult = Apollo.QueryResult<ScoresQuery, ScoresQueryVariables>;
+export const CreateScoreDocument = gql`
+    mutation createScore($playerId: Int!, $score: Int!, $dateCreated: Datetime!) {
+  createScore(
+    input: {score: {playerId: $playerId, score: $score, dateCreated: $dateCreated}}
+  ) {
+    score {
+      id
+      score
+      playerId
+      dateCreated
+    }
+  }
+}
+    `;
+export type CreateScoreMutationFn = Apollo.MutationFunction<CreateScoreMutation, CreateScoreMutationVariables>;
+
+/**
+ * __useCreateScoreMutation__
+ *
+ * To run a mutation, you first call `useCreateScoreMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateScoreMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createScoreMutation, { data, loading, error }] = useCreateScoreMutation({
+ *   variables: {
+ *      playerId: // value for 'playerId'
+ *      score: // value for 'score'
+ *      dateCreated: // value for 'dateCreated'
+ *   },
+ * });
+ */
+export function useCreateScoreMutation(baseOptions?: Apollo.MutationHookOptions<CreateScoreMutation, CreateScoreMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateScoreMutation, CreateScoreMutationVariables>(CreateScoreDocument, options);
+      }
+export type CreateScoreMutationHookResult = ReturnType<typeof useCreateScoreMutation>;
+export type CreateScoreMutationResult = Apollo.MutationResult<CreateScoreMutation>;
+export type CreateScoreMutationOptions = Apollo.BaseMutationOptions<CreateScoreMutation, CreateScoreMutationVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {

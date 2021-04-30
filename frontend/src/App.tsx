@@ -9,7 +9,9 @@ import { client } from "./apollo";
 
 import { Players } from "./Players";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { CreatePlayer } from "./Players/CreatePlayer";
+import { CreatePlayer } from "./CreatePlayer";
+import { Player } from "./Player";
+import { CreateScore } from "./CreateScore";
 
 function App() {
   return (
@@ -19,7 +21,13 @@ function App() {
           <div>
             <LanguageSwitcher />
             <Switch>
-              <Route exact path="/players/add">
+              <Route exact path="/players/:playerId">
+                <Player />
+              </Route>
+              <Route exact path="/players/:playerId/create-score">
+                <CreateScore />
+              </Route>
+              <Route exact path="/players/create">
                 <CreatePlayer />
               </Route>
               <Route exact path={["/", "/players"]}>

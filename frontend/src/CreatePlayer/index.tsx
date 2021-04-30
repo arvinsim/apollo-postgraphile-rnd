@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { useCreatePlayerMutation } from "../../generated/graphql";
+import { useCreatePlayerMutation } from "../generated/graphql";
 
 type TFormData = {
   name: string;

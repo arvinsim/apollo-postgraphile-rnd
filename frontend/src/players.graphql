@@ -1,0 +1,55 @@
+query Players {
+    allPlayers {
+        nodes {
+            id
+            name
+        }
+    }
+}
+
+query PlayerById($id: Int!) {
+    playerById(id: $id) {
+        id
+        name
+        scoresByPlayerId {
+            nodes {
+                id
+                score
+                dateCreated
+            }
+        }
+    }
+}
+
+mutation createPlayer($name: String!) {
+    createPlayer(
+        input: { player: { name: $name }}
+    ) {
+        player {
+            id
+            name
+        }
+    }
+}
+
+query Scores {
+    allScores {
+        nodes {
+            id
+            score
+            playerId
+            dateCreated
+        }
+    }
+}
+
+mutation createScore($playerId: Int!, $score: Int!, $dateCreated: Datetime!) {
+    createScore(input: { score: { playerId: $playerId, score: $score, dateCreated: $dateCreated}}) {
+        score {
+            id
+            score
+            playerId
+            dateCreated
+        }
+    }
+}
