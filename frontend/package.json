@@ -7,7 +7,7 @@
     "serve": "vite preview",
     "graphql-typescript-codegen": "graphql-codegen --config codegen.yml",
     "graphql-typescript-codegen:watch": "graphql-codegen --config codegen.yml --watch",
-    "extract:translations": "i18next --fail-on-warnings"
+    "extract:translations": "i18next --config i18next-parser.config.js --fail-on-warnings"
   },
   "dependencies": {
     "@apollo/client": "^3.3.15",
