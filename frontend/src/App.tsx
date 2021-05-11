@@ -21,14 +21,14 @@ function App() {
           <div>
             <LanguageSwitcher />
             <Switch>
-              <Route exact path="/players/:playerId">
-                <Player />
+              <Route exact path="/players/create">
+                <CreatePlayer />
               </Route>
               <Route exact path="/players/:playerId/create-score">
                 <CreateScore />
               </Route>
-              <Route exact path="/players/create">
-                <CreatePlayer />
+              <Route exact path="/players/:playerId">
+                <Player />
               </Route>
               <Route exact path={["/", "/players"]}>
                 <Players />
